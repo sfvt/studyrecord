@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My News App</title>
+    <link rel="stylesheet" href="/stylesheet.css" />
+  </head>
+  <body>
+    <aside class="sidebar-container min" id="siderbar"></aside>
+    <main class="content-wrapper">
+      <header class="header-section">
+        <button type="button" class="menu-button">
+          <span class="menu-icon">☰</span>
+          <span class="menu-text">メニュー</span>
+        </button>
+        <h1>学習記録</h1>
+      </header>
+      <section class="learning-logger-section">
+        <div class="select-watches">
+          <button class="timer-button is-timer" id="timerBtn" type="button">
+            Timer
+          </button>
+          <button class="stopwatch-button" id="stopwatchBtn" type="button">
+            StopWatch
+          </button>
+        </div>
+        <div class="timer-container is-timer" id="timerContainer">
+          <div class="time" id="timer">00:00:00</div>
+        </div>
+        <div class="timer-button-container">
+          <button type="button">START</button>
+          <button type="button">STOP</button>
+          <button type="button">SUBMIT</button>
+        </div>
+        <div class="select-subjects-container">
+          <select class="select-subjects"></select>
+          <button type="button">+</button>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
