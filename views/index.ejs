@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="/stylesheet.css" />
   </head>
   <body>
-    <aside class="sidebar-container min" id="siderbar"></aside>
+    <aside class="sidebar-container min" id="sidebar"></aside>
     <main class="content-wrapper">
+
       <header class="header-section">
         <button type="button" class="menu-button">
           <span class="menu-icon">☰</span>
@@ -15,7 +16,9 @@
         </button>
         <h1>学習記録</h1>
       </header>
+
       <section class="learning-logger-section">
+
         <div class="select-watches">
           <button class="timer-button is-timer" id="timerBtn" type="button">
             Timer
@@ -24,20 +27,45 @@
             StopWatch
           </button>
         </div>
+
         <div class="timer-container is-timer" id="timerContainer">
           <div class="time" id="timer">00:00:00</div>
         </div>
+
         <div class="timer-button-container">
           <button type="button">START</button>
           <button type="button">STOP</button>
           <button type="button">SUBMIT</button>
         </div>
+        
         <div class="select-subjects-container">
           <select class="select-subjects"></select>
           <button type="button">+</button>
         </div>
       </section>
+
     </main>
+    <!-- 確認画面 モーダル -->
+    <div class="modal-overlay hidden">
+      <div class="submit-modal-content">
+        <h2>学習時間を記録しますか？</h2>
+        <dl class="confirmation">
+          <div class="row">
+            <dt>今回の学習時間 :</dt>
+            <dd id="studyTime"></dd>
+          </div>
+          <div class="row">
+            <dt>教科 :</dt>
+            <dd id="subject"></dd>
+          </div>
+        </dl>
+        <div class="select-buttons">
+          <button type="button">キャンセル</button>
+          <button type="button">送信</button>
+        </div>
+      </div>
+    </div>
+    <!-- 教科の登録画面　モーダル -->
     <script type="module" src="/main.js"></script>
   </body>
 </html>
