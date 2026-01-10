@@ -19,6 +19,9 @@ button:hover,
 select:hover {
   cursor: pointer;
 }
+.hidden {
+  display: none;
+}
 /*ヘッダー*/
 .header-section {
   display: grid;

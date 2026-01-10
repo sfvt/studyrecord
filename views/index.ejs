@@ -8,7 +8,6 @@
   <body>
     <aside class="sidebar-container min" id="sidebar"></aside>
     <main class="content-wrapper">
-
       <header class="header-section">
         <button type="button" class="menu-button">
           <span class="menu-icon">☰</span>
@@ -18,7 +17,6 @@
       </header>
 
       <section class="learning-logger-section">
-
         <div class="select-watches">
           <button class="timer-button is-timer" id="timerBtn" type="button">
             Timer
@@ -35,18 +33,17 @@
         <div class="timer-button-container">
           <button type="button">START</button>
           <button type="button">STOP</button>
-          <button type="button">SUBMIT</button>
+          <button type="button" id="submit-button">SUBMIT</button>
         </div>
-        
-        <div class="select-subjects-container">
-          <select class="select-subjects"></select>
-          <button type="button">+</button>
-        </div>
-      </section>
 
+        <form action="/" method="get" class="select-subjects-container">
+          <select class="select-subjects"></select>
+          <button type="button" id="plus-subject-button">+</button>
+        </form>
+      </section>
     </main>
     <!-- 確認画面 モーダル -->
-    <div class="modal-overlay hidden">
+    <div class="modal hidden" id="study-modal">
       <div class="submit-modal-content">
         <h2>学習時間を記録しますか？</h2>
         <dl class="confirmation">
@@ -60,12 +57,29 @@
           </div>
         </dl>
         <div class="select-buttons">
-          <button type="button">キャンセル</button>
+          <button type="button" id="cancel-submit">キャンセル</button>
           <button type="button">送信</button>
         </div>
       </div>
     </div>
     <!-- 教科の登録画面　モーダル -->
+    <div class="modal hidden" id="subject-modal">
+      <div class="subject-modal-content">
+        <h2>教科の追加</h2>
+        <form action="/#" method="post">
+          <label for="subject"></label>
+          <input
+            name="subject"
+            type="text"
+            placeholder="教科名(国語・数学など)"
+          />
+          <div class="subject-bottons">
+            <button type="button" id="cancel-add-subject">キャンセル</button>
+            <button type="submit">送信</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
