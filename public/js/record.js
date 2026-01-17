@@ -1,14 +1,19 @@
-export function setupRecord() {
+export function handleTimekeepingClick() {
   //timer/stopwatchのタブ切り替えボタン
   const timerBtn = document.getElementById("timerBtn");
   const stopWatchBtn = document.getElementById("stopwatchBtn");
+  const modeTargets = document.querySelectorAll(".mode-target");
 
   function setupModeSwitch(before, after, switchBtn) {
     switchBtn.addEventListener("pointerdown", () => {
-      const status = document.querySelectorAll(`.${before}`);
-      for (let i = 0; i < status.length; i++) {
-        status[i].classList.remove(before);
-        status[i].classList.add(after);
+      for (let i = 0; i < modeTargets.length; i++) {
+        modeTargets[i].classList.remove(before);
+      }
+      const activeTargets = document.querySelectorAll(
+        `.mode-target[data-mode~="${after}"]`,
+      );
+      for (let i = 0; i < activeTargets.length; i++) {
+        activeTargets[i].classList.add(after);
       }
     });
   }

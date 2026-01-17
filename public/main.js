@@ -1,5 +1,5 @@
-import { setupRecord } from "./js/record.js";
+import { handleTimekeepingClick } from "./js/record.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupRecord();
+  handleTimekeepingClick();
 });

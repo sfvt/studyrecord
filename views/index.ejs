@@ -18,15 +18,29 @@
 
       <section class="learning-logger-section">
         <div class="select-watches">
-          <button class="timer-button is-timer" id="timerBtn" type="button">
+          <button
+            class="timer-button is-timer mode-target"
+            data-mode="is-timer"
+            id="timerBtn"
+            type="button"
+          >
             Timer
           </button>
-          <button class="stopwatch-button" id="stopwatchBtn" type="button">
+          <button
+            class="stopwatch-button mode-target"
+            data-mode="is-stopwatch"
+            id="stopwatchBtn"
+            type="button"
+          >
             StopWatch
           </button>
         </div>
 
-        <div class="timer-container is-timer" id="timerContainer">
+        <div
+          class="timer-container is-timer mode-target"
+          data-mode="is-timer is-stopwatch"
+          id="timerContainer"
+        >
           <div class="time" id="timer">00:00:00</div>
         </div>
 
@@ -36,10 +50,10 @@
           <button type="button" id="submit-button">SUBMIT</button>
         </div>
 
-        <form action="/" method="get" class="select-subjects-container">
+        <div class="select-subjects-container">
           <select class="select-subjects"></select>
           <button type="button" id="plus-subject-button">+</button>
-        </form>
+        </div>
       </section>
     </main>
     <!-- 確認画面 モーダル -->
