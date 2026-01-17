@@ -20,6 +20,14 @@ button:hover,
 select:hover {
   cursor: pointer;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
 
 /*ヘッダー*/
 .header-section {
@@ -160,12 +168,34 @@ select:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
 .select-buttons,
 .subject-bottons {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  width: 170px;
 }
+
+.submit-modal-content h2,
+.subject-modal-content h2 {
+  margin-top: 30px;
+}
+
+.row {
+  margin: 15px;
+  width: 170px;
+}
+
+.subject-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
 /* 下 */
 .hidden {
   display: none;
