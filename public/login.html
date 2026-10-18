@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ログイン — 学習記録</title>
+    <link rel="stylesheet" href="/stylesheet.css" />
+  </head>
+  <body class="login-page">
+    <main class="login-layout">
+      <section class="login-intro">
+        <a class="brand" href="/"
+          ><span class="brand-mark" aria-hidden="true">s.</span
+          ><span>学習記録<small>STUDY RECORD</small></span></a
+        >
+        <h1>今日の一歩を、<br />明日の自信に。</h1>
+        <p>
+          学んだ時間を残す。積み重ねを振り返る。<br />あなたの学びに、そっと寄り添う記録帳。
+        </p>
+      </section>
+      <section class="login-card" aria-labelledby="login-title">
+        <p class="eyebrow">WELCOME BACK</p>
+        <h2 id="login-title">おかえりなさい。</h2>
+        <p class="description">今日も、あなたのペースで。</p>
+        <!-- Spring Boot移行時にThymeleafのフォームとCSRFトークンを接続する。 -->
+        <form id="login-form">
+          <label for="username">ユーザー名</label
+          ><input
+            id="username"
+            name="username"
+            autocomplete="username"
+            placeholder="study_user"
+            required
+            aria-describedby="login-demo-note"
+          /><label for="password">パスワード</label
+          ><input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="パスワードを入力"
+            required
+            aria-describedby="login-demo-note"
+          /><button class="button button-primary" type="submit">
+            デモ画面へ進む →
+          </button>
+        </form>
+        <p class="notice" id="login-demo-note">
+          ログイン画面の見本です。認証は行いません。実際のパスワードは入力しないでください。
+        </p>
+        <a class="login-back" href="/">入力せずにデモを見る →</a>
+      </section>
+    </main>
+    <script src="/js/login-demo.js" defer></script>
+  </body>
+</html>

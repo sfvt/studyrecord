@@ -2,98 +2,349 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <title>My News App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>学習記録 — Study Record</title>
     <link rel="stylesheet" href="/stylesheet.css" />
   </head>
   <body>
-    <aside class="sidebar-container min" id="sidebar"></aside>
-    <main class="content-wrapper">
-      <header class="header-section">
-        <button type="button" class="menu-button">
-          <span class="menu-icon">☰</span>
-          <span class="menu-text">メニュー</span>
-        </button>
-        <h1>学習記録</h1>
-      </header>
-
-      <section class="learning-logger-section">
-        <div class="select-watches">
-          <button
-            class="timer-button is-timer mode-target"
-            data-mode="is-timer"
-            id="timer-btn"
-            type="button"
-          >
-            Timer
-          </button>
-          <button
-            class="stopwatch-button mode-target"
-            data-mode="is-stopwatch"
-            id="stopwatch-btn"
-            type="button"
-          >
-            StopWatch
-          </button>
-        </div>
-
-        <div
-          class="timer-container is-timer mode-target"
-          data-mode="is-timer is-stopwatch"
-          id="timerContainer"
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="メインナビゲーション">
+        <a class="brand" href="#timer"
+          ><span class="brand-mark" aria-hidden="true">s.</span
+          ><span>学習記録<small>STUDY RECORD</small></span></a
         >
-          <div class="time" id="timer">00:00:00</div>
+        <p class="nav-caption">YOUR WORKSPACE</p>
+        <nav class="navigation">
+          <a href="#timer" data-page="timer"
+            ><span aria-hidden="true">◷</span>計測する</a
+          >
+          <a href="#review" data-page="review"
+            ><span aria-hidden="true">▦</span>振り返る</a
+          >
+          <a href="#subjects" data-page="subjects"
+            ><span aria-hidden="true">▤</span>分野を管理</a
+          >
+        </nav>
+        <div class="sidebar-bottom">
+          <p>小さな積み重ねを、<br />確かな自信に。</p>
+          <span class="demo-tag">UI DEMO</span
+          ><small>サンプルデータでお試し中</small>
         </div>
-
-        <div class="timer-button-container">
-          <button type="button" id="start-button">START</button>
-          <button type="button" id="stop-button">PAUSE</button>
-          <button type="button" id="submit-button">SUBMIT</button>
-        </div>
-
-        <div class="select-subjects-container">
-          <select class="select-subjects"></select>
-          <button type="button" id="plus-subject-button">+</button>
-        </div>
-      </section>
-    </main>
-    <!-- 確認画面 モーダル -->
-    <div class="modal hidden" id="study-modal">
-      <div class="submit-modal-content">
-        <h2>学習時間を記録しますか？</h2>
-        <dl class="confirmation">
-          <div class="row">
-            <dt>今回の学習時間 :</dt>
-            <dd id="studyTime"></dd>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <span id="today-label"></span>
+          <div class="account">
+            <span class="avatar" aria-hidden="true">S</span
+            ><span>study_user</span
+            ><a href="/login.html">ログイン画面を見る ↗</a>
           </div>
-          <div class="row">
-            <dt>教科 :</dt>
-            <dd id="subject"></dd>
+        </header>
+        <main id="main-content">
+          <div class="demo-banner">
+            <span class="status-dot" aria-hidden="true"></span>画面デモ
+            <span class="banner-detail"
+              >データはブラウザー内のメモリで操作します。再読み込みで初期状態に戻ります。</span
+            >
           </div>
-        </dl>
-        <div class="select-buttons">
-          <button type="button" id="cancel-submit">キャンセル</button>
-          <button type="button">送信</button>
-        </div>
+          <div id="running-banner" class="running-banner" hidden>
+            <span>計測中 <strong id="running-time">00:00:00</strong></span
+            ><a href="#timer">計測画面へ戻る →</a>
+          </div>
+          <section id="page-timer" class="page" aria-labelledby="timer-heading">
+            <div class="page-heading">
+              <div>
+                <p class="eyebrow">MAKE TIME FOR YOURSELF</p>
+                <h1 id="timer-heading">今日の学びを、ここから。</h1>
+                <p class="description">
+                  まずは目の前の学びに集中。分野やメモは、終わってから。
+                </p>
+              </div>
+              <span class="page-index" aria-hidden="true">01 / FOCUS</span>
+            </div>
+            <div class="focus-layout">
+              <section class="timer-card" aria-label="ストップウォッチ">
+                <div class="card-top">
+                  <span class="eyebrow">FOCUS SESSION</span
+                  ><span id="timer-status" class="pill">開始前</span>
+                </div>
+                <div class="clock-face">
+                  <div class="clock-center">
+                    <span class="clock-caption">あなたの学びの時間</span
+                    ><output id="timer" class="clock-digits">00:00:00</output
+                    ><span class="clock-subtitle">ONE STEP AT A TIME</span>
+                  </div>
+                </div>
+                <button
+                  id="timer-action"
+                  class="button button-primary timer-action"
+                  type="button"
+                >
+                  ▶ 計測を開始
+                </button>
+                <p class="timer-hint" id="timer-hint">
+                  終わったら、学んだことを記録しましょう。
+                </p>
+                <div class="manual-entry">
+                  <span>計測を忘れてしまっても大丈夫。</span
+                  ><button class="text-button" id="manual-add" type="button">
+                    計測せずに記録する ↗
+                  </button>
+                </div>
+              </section>
+              <aside class="focus-side">
+                <div class="today-card">
+                  <div class="card-top">
+                    <span class="eyebrow">TODAY'S PROGRESS</span
+                    ><span aria-hidden="true">↗</span>
+                  </div>
+                  <h2>今日の積み重ね</h2>
+                  <div id="today-total" class="today-total"></div>
+                  <div class="thin-rule"></div>
+                  <p id="today-count" class="muted"></p>
+                  <a href="#review" class="text-link">学習記録を振り返る →</a>
+                </div>
+                <div class="note-card">
+                  <span class="note-symbol" aria-hidden="true">✧</span>
+                  <h2>記録は、あとでまとめて。</h2>
+                  <p>
+                    途中で学ぶ分野が変わっても、<br />計測はそのままで。<br />終了後に時間を分けて記録できます。
+                  </p>
+                  <span class="note-footer">LESS FRICTION, MORE FOCUS.</span>
+                </div>
+              </aside>
+            </div>
+            <section class="recent-section" aria-labelledby="recent-heading">
+              <div class="section-heading">
+                <h2 id="recent-heading">最近の学習記録</h2>
+                <a href="#review" class="text-link">カレンダーへ →</a>
+              </div>
+              <div id="recent-records" class="recent-list"></div>
+            </section>
+          </section>
+          <section
+            id="page-review"
+            class="page"
+            aria-labelledby="review-heading"
+            hidden
+          >
+            <div class="page-heading">
+              <div>
+                <p class="eyebrow">LOOK BACK, MOVE FORWARD</p>
+                <h1 id="review-heading">積み重ねが、見えてくる。</h1>
+                <p class="description">
+                  学んだ時間も、学んだことも。あなたの歩みを振り返りましょう。
+                </p>
+              </div>
+              <span class="page-index" aria-hidden="true">02 / REFLECT</span>
+            </div>
+            <div class="review-overview">
+              <section class="total-card">
+                <span class="eyebrow">TOTAL STUDY TIME</span>
+                <h2>トータル学習時間</h2>
+                <div id="all-total" class="large-total"></div>
+                <span class="muted">保存したすべての学習記録から集計</span>
+              </section>
+              <section class="subject-summary">
+                <div class="section-heading">
+                  <h2>分野別の学習時間</h2>
+                  <span class="muted">累計</span>
+                </div>
+                <div id="subject-totals"></div>
+              </section>
+            </div>
+            <section class="calendar-card" aria-labelledby="calendar-heading">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">LEARNING CALENDAR</p>
+                  <h2 id="calendar-heading">学習カレンダー</h2>
+                </div>
+                <div class="calendar-controls">
+                  <button
+                    type="button"
+                    id="previous-month"
+                    class="icon-button"
+                    aria-label="前月"
+                  >
+                    ←
+                  </button>
+                  <h3 id="calendar-month"></h3>
+                  <button
+                    type="button"
+                    id="next-month"
+                    class="icon-button"
+                    aria-label="翌月"
+                  >
+                    →</button
+                  ><button
+                    type="button"
+                    id="this-month"
+                    class="button button-small"
+                  >
+                    今月
+                  </button>
+                </div>
+              </div>
+              <p class="muted calendar-help">
+                日付を選ぶと、記録の確認・追加・編集ができます。
+              </p>
+              <div class="weekdays" aria-hidden="true">
+                <span>日</span><span>月</span><span>火</span><span>水</span
+                ><span>木</span><span>金</span><span>土</span>
+              </div>
+              <div id="calendar-grid" class="calendar-grid"></div>
+            </section>
+          </section>
+          <section
+            id="page-subjects"
+            class="page"
+            aria-labelledby="subjects-heading"
+            hidden
+          >
+            <div class="page-heading">
+              <div>
+                <p class="eyebrow">ORGANIZE YOUR LEARNING</p>
+                <h1 id="subjects-heading">学びの分野を整える。</h1>
+                <p class="description">
+                  あなたが学びたいことを、自由に追加しましょう。
+                </p>
+              </div>
+              <span class="page-index" aria-hidden="true">03 / ORGANIZE</span>
+            </div>
+            <section class="panel subject-create">
+              <h2>新しい分野を追加</h2>
+              <form id="subject-form" novalidate>
+                <label for="subject-name"
+                  >分野名 <span class="required">必須</span></label
+                >
+                <div class="inline-form">
+                  <input
+                    id="subject-name"
+                    name="name"
+                    type="text"
+                    maxlength="100"
+                    placeholder="例：JavaScript、英語、デザイン"
+                    aria-describedby="subject-error"
+                  /><button type="submit" class="button button-primary">
+                    ＋ 分野を追加
+                  </button>
+                </div>
+                <p id="subject-error" class="field-error" role="alert"></p>
+              </form>
+            </section>
+            <section class="panel">
+              <div class="section-heading">
+                <h2>登録済みの分野</h2>
+                <span id="subject-count" class="muted"></span>
+              </div>
+              <p class="muted">
+                名前の変更は過去の記録にも反映されます。記録で使われている分野は削除できません。
+              </p>
+              <div id="subject-list" class="subject-list"></div>
+              <p id="subject-list-error" class="field-error" role="alert"></p>
+            </section>
+          </section>
+          <footer class="page-footer">
+            <span>STUDY RECORD</span><span>今日の一歩を、明日の自信に。</span>
+          </footer>
+        </main>
       </div>
     </div>
-    <!-- 教科の登録画面　モーダル -->
-    <div class="modal hidden" id="subject-modal">
-      <div class="subject-modal-content">
-        <h2>教科の追加</h2>
-        <form action="/#" method="post" class="subject-form">
-          <label for="subject"></label>
-          <input
-            name="subject"
-            type="text"
-            placeholder="教科名(国語・数学など)"
-          />
-          <div class="subject-bottons">
-            <button type="button" id="cancel-add-subject">キャンセル</button>
-            <button type="submit">送信</button>
+    <dialog
+      id="study-modal"
+      class="record-dialog"
+      aria-labelledby="record-title"
+    >
+      <form id="record-form" novalidate>
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">SAVE YOUR PROGRESS</p>
+            <h2 id="record-title">学習記録を入力</h2>
           </div>
-        </form>
+          <span class="dialog-symbol" aria-hidden="true">✳</span>
+        </div>
+        <div class="dialog-body">
+          <div class="record-meta">
+            <div>
+              <label for="study-date"
+                >学習日 <span class="required">必須</span></label
+              ><input
+                type="date"
+                id="study-date"
+                name="studyDate"
+                aria-describedby="date-error"
+              />
+              <p id="date-error" class="field-error"></p>
+            </div>
+            <div id="measured-box" class="measured-box">
+              <span class="muted">今回の計測時間</span
+              ><strong id="measured-time"></strong>
+            </div>
+          </div>
+          <div class="section-heading">
+            <h3>学習の内訳</h3>
+            <span class="muted">メモは任意です</span>
+          </div>
+          <div id="record-rows" class="record-rows"></div>
+          <button type="button" class="button button-dashed" id="add-row">
+            ＋ 入力行を追加
+          </button>
+          <p id="record-error" class="field-error" role="alert"></p>
+        </div>
+        <div class="dialog-footer">
+          <div class="record-total">
+            <span>合計学習時間</span
+            ><output id="record-total">0時間00分</output>
+          </div>
+          <p id="time-warning" class="notice" hidden></p>
+          <div class="dialog-actions">
+            <button
+              type="button"
+              class="button button-quiet"
+              id="discard-record"
+            >
+              破棄する</button
+            ><button
+              type="submit"
+              class="button button-primary"
+              id="save-record"
+            >
+              記録する →
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="daily-modal" class="daily-dialog" aria-labelledby="daily-title">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">DAILY RECORDS</p>
+          <h2 id="daily-title"></h2>
+        </div>
+        <button
+          type="button"
+          id="close-daily"
+          class="icon-button"
+          aria-label="日別の記録を閉じる"
+        >
+          ×
+        </button>
       </div>
-    </div>
+      <div class="dialog-body">
+        <div class="daily-total">
+          <span>この日の学習時間</span><strong id="daily-total"></strong>
+        </div>
+        <div id="daily-records"></div>
+      </div>
+      <div class="dialog-footer dialog-actions">
+        <button type="button" class="button" id="daily-close-bottom">
+          閉じる</button
+        ><button type="button" id="daily-add" class="button button-primary">
+          ＋ 記録を追加
+        </button>
+      </div>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
